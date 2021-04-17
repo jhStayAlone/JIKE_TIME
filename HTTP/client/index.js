@@ -1,4 +1,4 @@
-const  net = require('net')
+const net = require("net");
 
 class Request {
     constructor(options) {
@@ -19,7 +19,7 @@ class Request {
                 return `${item}=${encodeURIComponent(this.body[item])}`
             }).join('&')
         }
-        this.headers['content-Length'] = this.bodyText.length
+        this.headers['Content-Length'] = this.bodyText.length
     }
 
     send(connection) {
@@ -36,27 +36,24 @@ class Request {
                 })
             }
             connection.on('data', (data) => {
-                console.log(data.toString())
                 parser.receive(data.toString())
                 if (parser.isFinished) {
                     resolve(parser.response)
-                    connection.end()
                 }
+                connection.end()
             })
-            connection('error', (err) => {
+            connection.on('error', (err) => {
+                console.log(err, 'err')
                 reject(err)
                 connection.end()
             })
         })
     }
     toString() {
-        return `
-            ${this.method} ${this.path} HTTP/1.1\r
-            ${Object.keys(this.headers).map((item) => {
-                return `${item}: ${this.headers[item]}`
-            }).join('\r\n')}\r\n
-            ${this.bodyText}
-        `
+        return ` ${this.method} ${this.path} HTTP/1.1\r
+${Object.keys(this.headers).map((item) => {return `${item}: ${this.headers[item]}`}).join('\r\n')}\r
+\r
+${this.bodyText}`
     }
 }
 
@@ -192,21 +189,42 @@ class TrunkedBodyParser {
     }
 }
 
+// void function() {
+//     let req = new Request({
+//         method: 'POST',
+//         host: '127.0.0.1',
+//         port: '8088',
+//         path: '/',
+//         headers: {
+//             ['X-Foo2']: 'customed'
+//         },
+//         body: {
+//             name: 'stay alone'
+//         }
+//     })
+//     req.send().then((res) => {
+//     }).catch(err => {
+//     });
+// }()
+
+// 这个错误是通过在没有catch块的async函数中抛出 try {} catch(error) {}
 void async function() {
-    let req = new Request({
-        method: 'POST',
-        host: '127.0.0.1',
-        port: '8088',
-        path: '/',
-        headers: {
-            ['X-Foo2']: 'customed'
-        },
-        body: {
-            name: 'stay alone'
-        }
-    })
-
-    let res = await req.send();
-
-    console.log(res)
+    try {
+        let req = new Request({
+            method: 'POST',
+            host: '127.0.0.1',
+            port: '8088',
+            path: '/',
+            headers: {
+                ['X-Foo2']: 'customed'
+            },
+            body: {
+                name: 'stay alone'
+            }
+        })
+        let res = await req.send();
+        console.log(res, 'resres')
+    } catch (error) {
+        // console.log(error)
+    }
 }()
