@@ -32,6 +32,7 @@ class Request {
                     host: this.host,
                     port: this.port
                 }, () => {
+                    console.log(this.toString())
                     connection.write(this.toString())
                 })
             }
@@ -50,7 +51,7 @@ class Request {
         })
     }
     toString() {
-        return ` ${this.method} ${this.path} HTTP/1.1\r
+        return `${this.method} ${this.path} HTTP/1.1\r
 ${Object.keys(this.headers).map((item) => {return `${item}: ${this.headers[item]}`}).join('\r\n')}\r
 \r
 ${this.bodyText}`
@@ -189,42 +190,38 @@ class TrunkedBodyParser {
     }
 }
 
-// void function() {
+void function() {
+    let req = new Request({
+        method: 'POST',
+        host: '127.0.0.1',
+        port: '8088',
+        path: '/',
+        headers: {
+            ['X-Foo2']: 'customed'
+        },
+        body: {
+            name: 'stay alone'
+        }
+    })
+    req.send().then((res) => {
+        console.log(res)
+    }).catch(err => {
+    });
+}()
+
+// void async function() {
 //     let req = new Request({
 //         method: 'POST',
 //         host: '127.0.0.1',
 //         port: '8088',
 //         path: '/',
 //         headers: {
-//             ['X-Foo2']: 'customed'
+//             'X-Foo2': 'customed'
 //         },
 //         body: {
 //             name: 'stay alone'
 //         }
 //     })
-//     req.send().then((res) => {
-//     }).catch(err => {
-//     });
+//     let res = await req.send()
+//     console.log(res, 'resres')
 // }()
-
-// 这个错误是通过在没有catch块的async函数中抛出 try {} catch(error) {}
-void async function() {
-    try {
-        let req = new Request({
-            method: 'POST',
-            host: '127.0.0.1',
-            port: '8088',
-            path: '/',
-            headers: {
-                ['X-Foo2']: 'customed'
-            },
-            body: {
-                name: 'stay alone'
-            }
-        })
-        let res = await req.send();
-        console.log(res, 'resres')
-    } catch (error) {
-        // console.log(error)
-    }
-}()
