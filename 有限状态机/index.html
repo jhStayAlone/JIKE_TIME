@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有限状态机</title>
+</head>
+<body>
+    一. 有限状态机
+
+        1. 每一个状态都是一个机器
+        2. 每一个机器知道下一个状态
+            有确定的下一个状态（Moore）
+            由输入值决定下一个状态（Mealy）
+
+    二. JS中的有限状态机（Mealy）
+
+        // 每个函数是一个状态
+        function state(input) //函数参数就是输入
+        {
+            // 在函数中，可以自由地编写代码，处理每个状态的逻辑
+            return next; // 返回值作为下一个状态
+        }
+        while(input) {
+            // 获取输入
+            state = state(input); // 把状态机的返回值作为下一个状态
+        }
+
+
+
+</body>
+</html>

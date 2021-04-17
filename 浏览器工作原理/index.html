@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器工作原理</title>
+</head>
+<body>
+    浏览器工作原理：
+
+                HTTP             parse        css computing                 layout                         render
+        URL -----------> HTML -----------> DOM -----------> DOM with CSS -----------> DOM with position -----------> Bigmap
+
+
+    一. ISO-OSI 七层网络模型
+
+    --------------------------------------------------
+    应用层
+    表示层                                        HTTP
+    会话层
+    --------------------------------------------------
+    传输层                                         TCP
+    --------------------------------------------------
+    网络层                                    Internet
+    --------------------------------------------------
+    数据链路层
+                                        4G / 5G / WIFI
+    物理层
+    --------------------------------------------------
+
+
+    二. TCP / IP 基础知识
+
+    TCP                                IP
+    1. 流                              包
+    2. 端口                            IP地址
+    3. require('net')                  libnet / libpcap
+
+
+    三. HTTP
+
+    Request
+    Response
+
+    --- Request ---
+    1. Request line
+    2. Request Headers
+    3. Request Body
+
+    --- Response ---
+    1. Status line
+    2. Response Headers
+    3. Response Body
+</body>
+</html>
