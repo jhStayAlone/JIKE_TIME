@@ -1,4 +1,5 @@
 const net = require("net");
+const parse = require("./parse.js");
 
 class Request {
     constructor(options) {
@@ -32,7 +33,7 @@ class Request {
                     host: this.host,
                     port: this.port
                 }, () => {
-                    console.log(this.toString())
+                    // console.log(this.toString())
                     connection.write(this.toString())
                 })
             }
@@ -190,7 +191,27 @@ class TrunkedBodyParser {
     }
 }
 
-void function() {
+// void function() {
+//     let req = new Request({
+//         method: 'POST',
+//         host: '127.0.0.1',
+//         port: '8088',
+//         path: '/',
+//         headers: {
+//             ['X-Foo2']: 'customed'
+//         },
+//         body: {
+//             name: 'stay alone'
+//         }
+//     })
+//     let dom = null
+//     req.send().then((res) => {
+        
+//     }).catch(err => {
+//     });
+// }()
+
+void async function() {
     let req = new Request({
         method: 'POST',
         host: '127.0.0.1',
@@ -203,25 +224,7 @@ void function() {
             name: 'stay alone'
         }
     })
-    req.send().then((res) => {
-        console.log(res)
-    }).catch(err => {
-    });
+    let res = await req.send()
+    let dom = parse.parseHTML(res.body)
+    // console.log(dom, 'dom')
 }()
-
-// void async function() {
-//     let req = new Request({
-//         method: 'POST',
-//         host: '127.0.0.1',
-//         port: '8088',
-//         path: '/',
-//         headers: {
-//             'X-Foo2': 'customed'
-//         },
-//         body: {
-//             name: 'stay alone'
-//         }
-//     })
-//     let res = await req.send()
-//     console.log(res, 'resres')
-// }()

@@ -10,7 +10,43 @@ http.createServer((req, res) => {
         // body = Buffer.concat(body).toString()
         console.log(body, 'body')
         res.writeHead(200, {'content-type': 'text/html'})
-        res.end(' Hello World\n')
+        res.end(
+            `
+            <html lang="en">
+            <head>
+                <title>Document</title>
+            </head>
+            <body>
+                <style>
+                    .box .header {
+                        width: 100px;
+                        height: 100px;
+                        color: #345;
+                        background-color: #000;
+                    }
+                    .box .content {
+                        width: 100px;
+                        height: 100px;
+                        color: #345;
+                        background-color: #000;
+                    }
+                    .box .footer {
+                        width: 100px;
+                        height: 100px;
+                        color: #345;
+                        background-color: #000;
+                    }
+                </style>
+                <div class="box">
+                    <div class="header"></div>
+                    <div class="content"></div>
+                    <div class="footer"></div>
+                </div>
+                <script></script>
+            </body>
+            </html>
+            `
+        )
     })
 }).listen(8088)
 
