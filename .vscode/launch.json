@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\NO.1 HTTP\\client\\parse.js"
+            "program": "${workspaceFolder}\\NO.1 HTTP\\client\\index.js"
         }
     ]
 }

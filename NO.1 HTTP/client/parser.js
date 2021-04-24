@@ -8,7 +8,7 @@ let currentTextNode = null
 let rules = []
 function addCSSRules(text) {
     let ast = css.parse(text)
-    // console.log(JSON.stringify(ast, null, '     '))
+    console.log(JSON.stringify(ast, null, '     '))
     rules.push(...ast.stylesheet.rules)
     // console.log(rules, 'rules')
 }
