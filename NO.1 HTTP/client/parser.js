@@ -14,7 +14,56 @@ function addCSSRules(text) {
 }
 
 function match(element, selector) {
+    if (!selector || !element.attributes) {
+        return false
+    }
+    if (selector.charAt(0) === '#') {
+        let attr = element.attributes.filter(key => {
+            key.name === 'id'
+        })[0]
+        if (attr && attr.value === selector.replace('#', '')) {
+            return true
+        }
+    } else if (selector.charAt(0) === '.') {
+        let attr = element.attributes.filter(key => {
+            key.name === 'class'
+        })[0]
+        if (attr && attr.value === selector.replace('.', '')) {
+            return true
+        }
+    } else {
+        if (element.tagName === selector) {
+            return true
+        }
+    }
+}
 
+function specificity(selector) {
+    let spList = [0, 0, 0, 0]
+    let selectorParts = selector.split(' ')
+    for (let part of selectorParts) {
+        if (part.charAt(0) === '#') {
+            spList[1] += 1
+        } else if (part.charAt(0) === '.') {
+            spList[2] += 1
+        } else {
+            spList[3] += 1
+        }
+    }
+    return spList
+}
+
+function compare(sp1, sp2) {
+    if (sp1[0] - sp2[0]) {
+        return sp1[0] - sp2[0]
+    }
+    if (sp1[1] - sp2[1]) {
+        return sp1[1] - sp2[1]
+    }
+    if (sp1[2] - sp2[2]) {
+        return sp1[2] - sp2[2]
+    }
+    return sp1[3] - sp2[3]
 }
 
 function computeCSS(element) {
@@ -39,7 +88,21 @@ function computeCSS(element) {
             matched = true
         }
         if (matched) {
-            console.log(element, rule, 'matched')
+            let sp = specificity(rule.selectors[0])
+            let computedStyle = element.computedStyle
+            for (let declaration of rule.declarations) {
+                if (!computedStyle[declaration.property]) {
+                     computedStyle[declaration.property] = {}
+                }
+                if (!computedStyle[declaration.property].specificity) {
+                     computedStyle[declaration.property].value = declaration.value
+                     computedStyle[declaration.property].specificity = sp
+                } else if (compare(computedStyle[declaration.property].specificity, sp) < 0) {
+                    computedStyle[declaration.property].value = declaration.value
+                    computedStyle[declaration.property].specificity = sp
+                }
+            }
+            // console.log(element, rule, 'matched')
         }
     }
 }
@@ -63,7 +126,6 @@ function emit(token) {
         }
         computeCSS(element)
         top.children.push(element)
-        element.parent = top
         if (!token.isSelfClosing) {
             stack.push(element)
         }
