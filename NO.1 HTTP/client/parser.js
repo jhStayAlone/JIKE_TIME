@@ -7,8 +7,9 @@ let currentTextNode = null
 
 let rules = []
 function addCSSRules(text) {
+    // console.log(text, 'text')
     let ast = css.parse(text)
-    console.log(JSON.stringify(ast, null, '     '))
+    // console.log(JSON.stringify(ast, null, '     '))
     rules.push(...ast.stylesheet.rules)
     // console.log(rules, 'rules')
 }
@@ -102,7 +103,6 @@ function computeCSS(element) {
                     computedStyle[declaration.property].specificity = sp
                 }
             }
-            // console.log(element, rule, 'matched')
         }
     }
 }
@@ -136,6 +136,7 @@ function emit(token) {
         } else {
             // 处理style标签的css语法
             if (top.tagName === 'style') {
+                // console.log(top, 'top')
                 addCSSRules(top.children[0].content)
             }
             stack.pop()
