@@ -204,5 +204,5 @@ void async function() {
         }
     })
     let res = await req.send()
-    console.log(res.body)
+    console.log(res)
 }()
