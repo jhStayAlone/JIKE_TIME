@@ -20,14 +20,14 @@ function match(element, selector) {
     }
     if (selector.charAt(0) === '#') {
         let attr = element.attributes.filter(key => {
-            key.name === 'id'
+            return key.name === 'id'
         })[0]
         if (attr && attr.value === selector.replace('#', '')) {
             return true
         }
     } else if (selector.charAt(0) === '.') {
         let attr = element.attributes.filter(key => {
-            key.name === 'class'
+            return key.name === 'class'
         })[0]
         if (attr && attr.value === selector.replace('.', '')) {
             return true
@@ -78,7 +78,7 @@ function computeCSS(element) {
         if (!match(element, selectorParts[0])) {
             continue
         }
-        let matched = false
+        // let matched = false
         let j = 1
         for(let i = 0; i < elements.length; i++) {
             if (match(elements[i], selectorParts[j])) {
@@ -104,10 +104,12 @@ function computeCSS(element) {
                 }
             }
         }
+        console.log(element, 'computedStyle')
     }
 }
 
 function emit(token) {
+    // console.log(token, 'token')
     let top = stack[stack.length - 1]
     if (token.type === 'startTag') {
         let element = {

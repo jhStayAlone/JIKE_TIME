@@ -21,14 +21,14 @@ function match(element, selector) {
     }
     if (selector.charAt(0) === '#') {
         let attr = element.attributes.filter(key => {
-            key.name === 'id'
+            return key.name === 'id'
         })[0]
         if (attr && attr.value === selector.replace('#', '')) {
             return true
         }
     } else if (selector.charAt(0) === '.') {
         let attr = element.attributes.filter(key => {
-            key.name === 'class'
+            return key.name === 'class'
         })[0]
         if (attr && attr.value === selector.replace('.', '')) {
             return true
@@ -140,6 +140,7 @@ function emit(token) {
                 // console.log(top, 'top')
                 addCSSRules(top.children[0].content)
             }
+            // console.log(top, 'top')
             layout(top)
             stack.pop()
         }

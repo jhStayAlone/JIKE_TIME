@@ -22,21 +22,21 @@ http.createServer((req, res) => {
     display: flex;
     width: 500px;
     height: 300px;
-    background-color: #000;
+    background-color:rgb(0,0,0);
 }
 .box .header {
     width: 100px;
     height: 100px;
-    background-color: #f00;
+    background-color:rgb(255,0,0);
 }
 .box .content {
     width: 200px;
     height: 200px;
-    background-color: #0f0;
+    background-color:rgb(0,255,0);
 }
 .box .footer {
     flex: 1;
-    background-color: #00f;
+    background-color:rgb(0,0,255);
 }
     </style>
     <div class="box">

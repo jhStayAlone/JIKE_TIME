@@ -21,6 +21,7 @@ function layout(element) {
         return
     }
     var elementStyle = getStyle(element)
+    // console.log(element, 'element')
     if (elementStyle.display !== 'flex') {
         return
     }
@@ -31,7 +32,8 @@ function layout(element) {
         return (a.order || 0) - (b.order || 0)
     })
     var style = elementStyle
-    ['width', 'height'].forEach(size => {
+    var list = ['width', 'height']
+    list.forEach(size => {
         if (style[size] === 'auto' || style[size] === '') {
             style[size] = null
         }

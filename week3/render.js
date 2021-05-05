@@ -14,6 +14,7 @@ function render(viewport, element) {
 
     if (element.children) {
         for (var child of element.children) {
+            console.log(child, 'child')
             render(viewport, child)
         }
     }
