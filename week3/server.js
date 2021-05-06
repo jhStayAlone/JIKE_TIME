@@ -22,7 +22,7 @@ http.createServer((req, res) => {
     display: flex;
     width: 500px;
     height: 300px;
-    background-color:rgb(0,0,0);
+    background-color:rgb(50,50,50);
 }
 .box .header {
     width: 100px;
@@ -40,9 +40,9 @@ http.createServer((req, res) => {
 }
     </style>
     <div class="box">
-        <div class="header"></div>
-        <div class="content"></div>
         <div class="footer"></div>
+        <div class="content"></div>
+        <div class="header"></div>
     </div>
     <script></script>
 </body>

@@ -26,7 +26,7 @@ function layout(element) {
         return
     }
     var items = element.children.filter(e => {
-        e.type === 'element'
+        return e.type === 'element'
     })
     items.sort((a, b) => {
         return (a.order || 0) - (b.order || 0)
@@ -57,7 +57,7 @@ function layout(element) {
 
     var mainSize, mainStart, mainEnd, mainSign, mainBase,
         crossSize, crossStart, crossEnd, crossSign, crossBase
-    if (style.flexDirection === 'row') {
+    if (style.flexDirection === 'row-reverse') {
         mainSize = 'width'
         mainStart = 'left'
         mainEnd = 'right'
@@ -69,7 +69,7 @@ function layout(element) {
         crossEnd = 'bottom'
     }
 
-    if (style.flexDirection === 'row-reverse') {
+    if (style.flexDirection === 'row') {
         mainSize = 'width'
         mainStart = 'right'
         mainEnd = 'left'
@@ -290,9 +290,7 @@ function layout(element) {
         step = 0
     }
     flexLines.forEach((items) => {
-        var lineCrossSize = style.alignContent === 'stretch' ?
-            items.crossSpace + crossSpace / flexLines.length :
-            items.crossSpace
+        var lineCrossSize = style.alignContent === 'stretch' ? items.crossSpace + crossSpace / flexLines.length : items.crossSpace
         for (var i = 0; i < items.length; i++) {
             var item = items[i]
             var itemStyle = getStyle(item)
