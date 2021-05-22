@@ -1,5 +1,5 @@
-// import scan from "./LexParser.js"; // node 不支持ES6 模块化
-let scan = require('./LexParser') // 使用CommonJs模块化
+import {scan} from "./LexParser.js"; // node 不支持ES6 模块化
+// let scan = require('./LexParser') // 使用CommonJs模块化
 // console.log(typeof scan, 'scan')
 
 let syntax = {

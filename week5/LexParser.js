@@ -41,7 +41,7 @@ class XRegexp {
     }
 }
 
-function* scan(str) {
+export function* scan(str) {
     let regexp = new XRegexp({
         InputElement: "<Whitespace>|<LineTerminator>|<Comments>|<Token>",
         Whitespace: / /,
@@ -129,4 +129,4 @@ let source = (`
 //     console.log(element)
 // }
 
-module.exports = scan
+// module.exports = scan
