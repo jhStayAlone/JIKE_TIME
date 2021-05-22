@@ -60,7 +60,7 @@ function closure(state) {
     let queue = []
     for (let symbol in state) {
         if (symbol.match(/^\$/)) {
-            return
+            continue
         }
         queue.push(symbol)
     }
@@ -84,7 +84,7 @@ function closure(state) {
     }
     for (let symbol in state) {
         if (symbol.match(/^\$/)) {
-            return
+            continue
         }
         if (hash[JSON.stringify(state[symbol])]) {
             state[symbol] = hash[JSON.stringify(state[symbol])]
@@ -104,19 +104,17 @@ let start = {
 
 closure(start)
 
-let source = `
-    var a;
-`
-
 function parse(source) {
-    console.log(start, 'start')
+    // console.log(start, 'start')
     let stack = [start]
+    let symbolStack = []
     function reduce() {
         let state = stack[stack.length - 1]
         if (state.$reduceType) {
             let children = []
             for(let i = 0; i < state.$reduceLength; i++) {
-                children.push(stack.pop())
+                stack.pop()
+                children.push(symbolStack.pop())
             }
             return {
                 type: state.$reduceType,
@@ -133,6 +131,7 @@ function parse(source) {
         // console.log(symbol.type in state)
         if (symbol.type in state) {
             stack.push(state[symbol.type])
+            symbolStack.push(symbol)
         } else {
             shift(reduce())
             shift(symbol)
@@ -142,10 +141,55 @@ function parse(source) {
         // console.log(symbol)
         shift(symbol)
     }
-    reduce()
+    return reduce()
     // console.log(stack)
 }
-parse(source)
+
+let evaluator = {
+    Program(node) {
+        // console.log(node, 'Program')
+        return evaluate(node.children[0])
+    },
+    StatementList(node) {
+        // console.log(node, 'StatementList')
+        if (node.children.length === 1) {
+            return evaluate(node.children[0])
+        } else {
+            evaluate(node.children[0])
+            return evaluate(node.children[1])
+        }
+    },
+    Statement(node) {
+        // console.log(node, 'Statement')
+        return evaluate(node.children[0])
+    },
+    VariableDeclaration(node) {
+        // console.log(node, 'VariableDeclaration')
+        console.log(node.children[1].name)
+    },
+    EOF() {
+        console.log('EOF')
+        return null
+    }
+}
+
+function evaluate(node) {
+    if (evaluator[node.type]) {
+        return evaluator[node.type](node)
+    }
+}
+
+//////////////////////////////////////////////////////
+
+let source = `
+    var a;
+    var b;
+`
+
+let tree = parse(source)
+// console.log(tree, 'tree')
+
+evaluate(tree)
 
 
 
