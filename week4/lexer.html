@@ -5,12 +5,13 @@
         constructor(source, flag, root = 'root') {
             this.table = new Map()
             this.regexp = new RegExp(this.compileRegExp(source, root, 0).source, flag)
+            // console.log(this.compileRegExp(source, root, 0))
             // console.log(this.regexp)
             // console.log(this.table)
             // console.log(this.compileRegExp(source, root, 0), 'this.compileRegExp(source, root, 0).source')
         }
         compileRegExp(source, name, start) {
-            // console.log(source[name].source, 'source[name].source')
+            // console.log(source[name], '----', source[name].source, '-----source[name]')
             if (source[name] instanceof RegExp) {
                 return {
                     source: source[name].source,
@@ -19,16 +20,18 @@
             }
             let length = 0
             let regexp = source[name].replace(/\<([^>]+)\>/g, (str, $1) => {
+                // console.log(str, $1)
                 // console.log(source[name], str, $1, '$1')
                 this.table.set(start + length, $1)
                 this.table.set($1, start + length)
                 ++length
                 let r = this.compileRegExp(source, $1, start + length)
                 length += r.length
-                // console.log(r, 'r')
+                // console.log(r, r.length, 'r')
                 // console.log(r.source, 'regexp')
                 return '(' + r.source + ')'
             })
+            // console.log(regexp, 'regexp')
             return {
                 source: regexp,
                 length: length
@@ -41,6 +44,16 @@
                 if (r[i] !== void 0) {
                     r[this.table.get(i - 1)] = r[i]
                 }
+            }
+            if (r.Keywords) {
+                r.color = '#00f'
+                // console.log(r[0])
+            } else if (r.Identifer) {
+                r.color = '#f00'
+                // console.log(r[0])
+            } else if (r.Punctuator) {
+                r.color = '#0f0'
+                // console.log(r[0])
             }
             return r
         }
@@ -68,10 +81,11 @@
             Identifer: /[a-zA-Z_$][a-zA-Z0-9_$]*/,
             Punctuator: /\+|\,|\?|\:|\{|\}|\.|\(|\)|\=|\<|\+\+|\=\=|\=\>|\*|\[|\]|;/
         }, "g", "InputElement")
-
+        // console.log(regexp)
         while(regexp.lastIndex < str.length) {
+            // console.log(regexp.lastIndex)
             let r = regexp.exec(str)
-            document.write(r[0])
+            document.write(`<span style="color: ${r.color}">${r[0]}</span>`)
             console.log(r[0])
             if (!r[0].length) {
                 break;
