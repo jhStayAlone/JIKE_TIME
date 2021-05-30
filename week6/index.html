@@ -1,8 +1,8 @@
 
-<script type="module" src="./SnytaxParser.js"></script>
+<script type="module" src="./run.js"></script>
 
 <textarea name="" id="source" cols="30" rows="10">
-    a = 5;
-    a;
+    a={b:1};
+    a.b;
 </textarea>
-<button onclick="console.log(js.evaluate(js.parse(document.getElementById('source').value)))">run</button>
+<button id="run">run</button>
