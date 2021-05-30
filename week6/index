@@ -1,0 +1,62 @@
+词法：InputElement
+
+InputElement ::= WhiteSpace | LineTerminator | Comment | Token
+
+WhiteSpace ::= " " | "　"
+
+LineTerminator ::= "\n" | "\r"
+
+Comment ::= SingleLineComment | MultiLineComment
+SingleLineComment ::= "/" "/" <any>*
+MultiLineComment ::= "/" "*" ([^*] | "*" [^/])* "*" "/"
+
+Token ::= Literal | Keywords | Identifier | Punctuator
+Literal ::= NumberLiteral | BooleanLiteral | StringLiteral | NullLiteral
+Keywords ::= "if" | "else" | "for" | "function" | ......
+Punctuator ::= "+" | "-" | "*" | "/" | "{" | "}" | ......
+
+
+
+
+语法：Program
+
+Program ::= ExpressionStatement | IfStatement | ForStatement
+        | WhileStatement | BreakStatement | ContinueStatement
+        | ReturnStatement | ThrowStatement | TryStatement
+        | VariableDeclaration | FunctionDeclaration | ClassDeclaration
+        | Block
+
+IfStatement ::= "if" "(" Expression ")" Statement
+
+Block ::= "{" Statement "}"
+
+TryStatement ::= "try" "{" Statement+ "}" "catch" "(" Expression ")" "{" Statement+ "}"
+
+
+四则运算：ExpressionStatement
+
+ExpressionStatement ::= Expression ";"
+表达式语句 ::= 表达式;
+
+Expression ::= AdditiveExpression
+表达式 ::= 加法表达式
+
+AdditiveExpression ::= MultiplicativeExpression
+        | AdditiveExpression ("+" | "-") MultiplicativeExpression
+加法表达式 ::= 乘法表达式
+        | 加法表达式 ("+" | "-") 乘法表达式
+
+MultiplicativeExpression ::= UnaryExpression
+        | MultiplicativeExpression ("*" | "/") UnaryExpression
+乘法表达式 ::= 一元表达式
+        | 乘法表达式 ("*" | "/") 一元表达式
+
+UnaryExpression ::= PrimaryExpression
+        | ("+" | "-" | "typeof") PrimaryExpression
+一元表达式 ::= 主表达式
+        | ("+" | "-" | "typeof") 主表达式
+
+PrimaryExpression ::= "(" Expression ")" | Literal | Identifier
+主表达式 ::= "(" 表达式 ")" | 字面量 | 标识符
+
+
