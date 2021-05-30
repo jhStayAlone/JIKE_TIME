@@ -49,7 +49,7 @@ export function* scan(str) {
         Comments: /\/\*(?:[^*]|\*[^\/])*\*\/|\/\/[^\n]*/,
         Token: "<Literal>|<Keywords>|<Identifier>|<Punctuator>",
         Literal: "<NumbericLiteral>|<BooleanLiteral>|<StringLiteral>|<NullLiteral>",
-        NumbericLiteral: /0b[01]+|0o[0-7]+|0x[0-9a-zA-Z]+|(?:[1-9][0-9]*|0)(?:\.[0-9]*)?|\.[0-9]+/,
+        NumbericLiteral: /0b[01]+|0o[0-7]+|0x[0-9a-fA-F]+|(?:[1-9][0-9]*|0)(?:\.[0-9]*)?|\.[0-9]+/,
         BooleanLiteral: /true|false/,
         StringLiteral: /\"(?:[^"\n]|\\[\s\S])*\"|\'(?:[^'\n]|\\[\s\S])*\'/,
         NullLiteral: /null/,
