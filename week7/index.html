@@ -1,0 +1,16 @@
+
+<script type="module" src="./run.js"></script>
+
+<textarea name="" id="source" cols="30" rows="10">
+    let x;
+    x = 1;
+    function a() {
+        log(x);
+    }
+    {
+        let x;
+        x = 2;
+        a();
+    }
+</textarea>
+<button id="run">run</button>
