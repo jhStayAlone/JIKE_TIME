@@ -136,8 +136,8 @@ export class Recognizer {
             this.dispatcher.dispatch('panstart', {
                 startX: context.startX,
                 startY: context.startY,
-                clientX: point.startX,
-                clientY: point.startY,
+                clientX: point.clientX,
+                clientY: point.clientY,
                 isVertical: context.isVertical,
             })
             clearTimeout(context.handler)
@@ -147,8 +147,8 @@ export class Recognizer {
             this.dispatcher.dispatch('pan', {
                 startX: context.startX,
                 startY: context.startY,
-                clientX: point.startX,
-                clientY: point.startY,
+                clientX: point.clientX,
+                clientY: point.clientY,
                 isVertical: context.isVertical,
             })
         }
@@ -182,8 +182,8 @@ export class Recognizer {
             this.dispatcher.dispatch('flick', {
                 startX: context.startX,
                 startY: context.startY,
-                clientX: point.startX,
-                clientY: point.startY,
+                clientX: point.clientX,
+                clientY: point.clientY,
                 isVertical: context.isVertical,
                 isFlick: context.isFlick,
                 velocity: v,
@@ -197,8 +197,8 @@ export class Recognizer {
             this.dispatcher.dispatch('panend', {
                 startX: context.startX,
                 startY: context.startY,
-                clientX: point.startX,
-                clientY: point.startY,
+                clientX: point.clientX,
+                clientY: point.clientY,
                 isVertical: context.isVertical,
                 isFlick: context.isFlick,
             })
