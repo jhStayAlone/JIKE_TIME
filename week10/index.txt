@@ -1,0 +1,30 @@
+
+对象与组件
+
+
+对象：
+    properties          属性
+    methods             方法
+    inherit             继承
+
+
+组件：
+    properties          属性（强调从属关系）
+    methods             方法
+    inherit             继承
+    attribute           特性（强调描述性）
+    config & state      参数 & 状态
+    event               事件对象
+    lifecycle           生命周期
+    children            子元素（形成树形结构）
+
+
+
+
+
+
+
+
+
+
+
